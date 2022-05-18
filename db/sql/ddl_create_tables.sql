@@ -14,7 +14,7 @@ CREATE TABLE "Category" (
 );
 
 CREATE TABLE "LibraryItems" (
-    "Id" INTEGER PRIMARY KEY NOT NULL,
+    "Id" SERIAL PRIMARY KEY NOT NULL,
     "CategoryId" INTEGER NOT NULL,
     "Title" VARCHAR(200) NOT NULL,
     "Author" VARCHAR(128) NOT NULL,
@@ -31,5 +31,3 @@ CREATE TABLE "LibraryItems" (
 );
 
 INSERT INTO "Category" VALUES(1, 'Fantasy');
-
-INSERT INTO "LibraryItems" VALUES(1, 1, 'Test title', 'Test Testsson', 321, NULL, true, NULL, NULL, 'Book');

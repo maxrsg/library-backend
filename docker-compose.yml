@@ -12,3 +12,4 @@ services:
     volumes:
       - ./db/sql/setup.sql:/docker-entrypoint-initdb.d/a.sql
       - ./db/sql/ddl_create_tables.sql:/docker-entrypoint-initdb.d/b.sql
+      - ./db/sql/ddl_procedures.sql:/docker-entrypoint-initdb.d/c.sql
