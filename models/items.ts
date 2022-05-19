@@ -30,10 +30,17 @@ const items = {
         item.Type,
       ]);
       console.log(response.rows[0]);
+      return res.status(200).json({ itemId: response.rows[0] });
     } catch (error) {
-      console.log(error);
+      return res.status(500).json({
+        error: {
+          status: 500,
+          path: "/items",
+          title: "Database error",
+          message: error,
+        },
+      });
     }
-    // const response = await db.query('INSERT INTO "LibraryItems"("CategoryId", "Title", "Author", "Pages", "RunTimeMinutes", "IsBorrowable", "Borrower", "BorrowDate", "Type") VALUES ()')
   },
 };
 

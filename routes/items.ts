@@ -23,5 +23,5 @@ router.get("/:id", async (req: Request, res: Response) => {
 });
 
 router.post("/", jsonParser, async (req: Request, res: Response) => {
-  items.createItem(res, req.body);
+  return items.createItem(res, req.body);
 });
