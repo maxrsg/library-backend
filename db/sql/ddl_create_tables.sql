@@ -3,13 +3,8 @@
 DROP TABLE IF EXISTS "Category";
 DROP TABLE IF EXISTS "LibraryItems";
 
--- CREATE SCHEMA library;
--- SHOW search_path;
--- SET search_path TO library;
--- SHOW search_path;
-
 CREATE TABLE "Category" (
-    "Id" INTEGER PRIMARY KEY NOT NULL,
+    "Id" SERIAL PRIMARY KEY NOT NULL,
     "CategoryName" VARCHAR(64)
 );
 
@@ -29,5 +24,3 @@ CREATE TABLE "LibraryItems" (
         FOREIGN KEY("CategoryId")
             REFERENCES "Category"("Id")
 );
-
-INSERT INTO "Category" VALUES(1, 'Fantasy');

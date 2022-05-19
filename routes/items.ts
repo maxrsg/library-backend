@@ -25,3 +25,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 router.post("/", jsonParser, async (req: Request, res: Response) => {
   return items.createItem(res, req.body);
 });
+
+router.put("/", jsonParser, async (req: Request, res: Response) => {
+  return items.editItem(res, req.body);
+});
