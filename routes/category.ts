@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 const Router = require("express-promise-router");
 const db = require("../db");
-const items = require("../models/items");
+const category = require("../models/category");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 
@@ -9,22 +9,18 @@ const router = new Router();
 
 module.exports = router;
 router.get("/", async (req: Request, res: Response) => {
-  return items.getAllItems(res);
+  const { rows } = await db.query('SELECT * FROM "Category"');
+  res.send(rows);
 });
 
 router.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
-  return items.getItemById(res, id);
+  const { rows } = await db.query('SELECT * FROM "Category" WHERE "Id" = $1', [
+    id,
+  ]);
+  res.send(rows[0]);
 });
 
 router.post("/", jsonParser, async (req: Request, res: Response) => {
-  return items.createItem(res, req.body);
-});
-
-router.put("/", jsonParser, async (req: Request, res: Response) => {
-  return items.editItem(res, req.body);
-});
-
-router.delete("/", jsonParser, async (req: Request, res: Response) => {
-  console.log("delete");
+  return category.createCategory(res, req.body);
 });

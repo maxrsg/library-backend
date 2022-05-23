@@ -1,5 +1,6 @@
 \c "Library";
 
+-- LibraryItems
 CREATE PROCEDURE add_item(
     "i_CategoryId" INTEGER,
     "i_Title" VARCHAR(200),
@@ -40,6 +41,16 @@ BEGIN
     WHERE "Id" = "i_Id";
 END;$$;
 
+CREATE PROCEDURE remove_item(
+"i_Id" int
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM "LibraryItems"
+    WHERE "Id" = "i_Id";
+END;$$;
+
 CREATE PROCEDURE show_item(
     "i_Id" INTEGER
 )
@@ -50,6 +61,7 @@ BEGIN
     WHERE "Id" = "i_Id";
 END;$$;
 
+-- Category
 CREATE PROCEDURE add_category(
     "c_CategoryName" VARCHAR(64),
     "c_Id" INOUT INTEGER DEFAULT null
@@ -60,5 +72,27 @@ BEGIN
     INSERT INTO "Category"("CategoryName")
     VALUES ("c_CategoryName")
     RETURNING "Id" INTO "c_Id";
+END;$$;
+
+CREATE PROCEDURE edit_category(
+    "c_Id" INTEGER,
+    "c_CategoryName" VARCHAR(64)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE "Category"
+    SET "CategoryName" = "c_CategoryName"
+    WHERE "Id" = "c_Id";
+END;$$;
+
+CREATE PROCEDURE remove_category(
+"c_Id" int
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM "Category"
+    WHERE "Id" = "c_Id";
 END;$$;
 
