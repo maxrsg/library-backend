@@ -105,6 +105,23 @@ const items = {
       });
     }
   },
+
+  removeItem: async (res: Response, id: number) => {
+    try {
+      const sql = `CALL remove_item($1);`;
+      const response = await db.query(sql, [id]);
+      return res.status(200).json({ deleted: id });
+    } catch (error) {
+      return res.status(500).json({
+        error: {
+          status: 500,
+          path: "/items",
+          title: "Database error",
+          message: error,
+        },
+      });
+    }
+  },
 };
 
 module.exports = items;

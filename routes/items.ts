@@ -25,6 +25,7 @@ router.put("/", jsonParser, async (req: Request, res: Response) => {
   return items.editItem(res, req.body);
 });
 
-router.delete("/", jsonParser, async (req: Request, res: Response) => {
-  console.log("delete");
+router.delete("/:id", jsonParser, async (req: Request, res: Response) => {
+  const { id } = req.params;
+  return items.removeItem(res, id);
 });
