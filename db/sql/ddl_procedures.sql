@@ -96,3 +96,16 @@ BEGIN
     WHERE "Id" = "c_Id";
 END;$$;
 
+-- Check out/in items
+CREATE PROCEDURE borrow_item(
+    "i_Id" int,
+    "i_Borrower" VARCHAR(128),
+    "i_BorrowDate" DATE
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE "LibraryItems"
+    SET "Borrower" = "i_Borrower", "BorrowDate" = "i_BorrowDate"
+    WHERE "Id" = "i_Id";
+END;$$;

@@ -14,6 +14,13 @@ interface Item {
   Type: string;
 }
 
+interface Borrow {
+  Id: number;
+  IsBorrowable: boolean;
+  Borrower: string;
+  BorrowDate: Date;
+}
+
 const items = {
   createItem: async (res: Response, item: Item) => {
     try {
@@ -109,6 +116,27 @@ const items = {
       const sql = `CALL remove_item($1);`;
       const response = await db.query(sql, [id]);
       return res.status(200).json({ deleted: id });
+    } catch (error) {
+      return res.status(500).json({
+        error: {
+          status: 500,
+          path: "/items",
+          title: "Database error",
+          message: error,
+        },
+      });
+    }
+  },
+
+  borrowItem: async (res: Response, borrowData: Borrow) => {
+    try {
+      const sql = `CALL "borrow_item"($1, $2, $3);`;
+      const response = await db.query(sql, [
+        borrowData.Id,
+        borrowData.Borrower,
+        borrowData.BorrowDate,
+      ]);
+      return res.status(200).json({ res: response.rows[0] });
     } catch (error) {
       return res.status(500).json({
         error: {

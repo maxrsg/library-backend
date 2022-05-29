@@ -29,3 +29,7 @@ router.delete("/:id", jsonParser, async (req: Request, res: Response) => {
   const { id } = req.params;
   return items.removeItem(res, id);
 });
+
+router.put("/borrow", jsonParser, async (req: Request, res: Response) => {
+  return items.borrowItem(res, req.body);
+});
