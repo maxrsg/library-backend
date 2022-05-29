@@ -130,11 +130,17 @@ const items = {
 
   borrowItem: async (res: Response, borrowData: Borrow) => {
     try {
+      let borrowDate: string | null;
       const sql = `CALL "borrow_item"($1, $2, $3);`;
+      if (borrowData.Borrower !== null) {
+        borrowDate = new Date().toISOString();
+      } else {
+        borrowDate = null;
+      }
       const response = await db.query(sql, [
         borrowData.Id,
         borrowData.Borrower,
-        borrowData.BorrowDate,
+        borrowDate,
       ]);
       return res.status(200).json({ res: response.rows[0] });
     } catch (error) {
