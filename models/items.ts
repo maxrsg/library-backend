@@ -29,7 +29,6 @@ const items = {
         item.BorrowDate,
         item.Type,
       ]);
-      console.log(response.rows[0]);
       return res.status(200).json({ itemId: response.rows[0].i_Id });
     } catch (error) {
       return res.status(500).json({
@@ -58,7 +57,6 @@ const items = {
         item.BorrowDate,
         item.Type,
       ]);
-      console.log("edited: ", response);
       return res.status(200).json({ res: response.rows[0] });
     } catch (error) {
       return res.status(500).json({

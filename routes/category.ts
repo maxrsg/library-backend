@@ -28,6 +28,10 @@ router.post("/", jsonParser, async (req: Request, res: Response) => {
   return category.createCategory(res, req.body);
 });
 
+router.put("/", jsonParser, async (req: Request, res: Response) => {
+  return category.editCategory(res, req.body);
+});
+
 router.delete("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   return category.removeCategory(res, id);

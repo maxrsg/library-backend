@@ -2,7 +2,7 @@ import { Response } from "express";
 const db = require("../db");
 
 interface Category {
-  id?: number;
+  Id?: number;
   CategoryName: string;
 }
 
@@ -11,6 +11,26 @@ const category = {
     try {
       const sql = `CALL "add_category"($1);`;
       const response = await db.query(sql, [category.CategoryName]);
+      return res.status(200).json({ categoryId: response.rows[0] });
+    } catch (error) {
+      return res.status(500).json({
+        error: {
+          status: 500,
+          path: "/category",
+          title: "Database error",
+          message: error,
+        },
+      });
+    }
+  },
+
+  editCategory: async (res: Response, category: Category) => {
+    try {
+      const sql = `CALL "edit_category"($1, $2);`;
+      const response = await db.query(sql, [
+        category.Id,
+        category.CategoryName,
+      ]);
       return res.status(200).json({ categoryId: response.rows[0] });
     } catch (error) {
       return res.status(500).json({
