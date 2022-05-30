@@ -94,9 +94,12 @@ const items = {
     }
   },
 
-  getAllItems: async (res: Response) => {
+  getAllItems: async (res: Response, orderByType = false) => {
     try {
-      const sql = "SELECT * FROM view_items";
+      let sql = 'SELECT * FROM view_items ORDER BY "view_items"."CategoryName"';
+      if (orderByType) {
+        sql = 'SELECT * FROM view_items ORDER BY "view_items"."Type"';
+      }
       const response = await db.query(sql);
       return res.status(200).json({ items: response.rows });
     } catch (error) {

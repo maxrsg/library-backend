@@ -9,6 +9,9 @@ const router = new Router();
 
 module.exports = router;
 router.get("/", async (req: Request, res: Response) => {
+  if (req.query.orderByType) {
+    return items.getAllItems(res, true);
+  }
   return items.getAllItems(res);
 });
 
